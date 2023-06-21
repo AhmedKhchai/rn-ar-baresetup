@@ -9,8 +9,9 @@ import {
 
 function App() {
   const openARViewer = () => {
-    const fileUrl = 'https://example.com/your_3d_model_file.gltf'; // Replace with your actual 3D model URL
-    const title = 'Your Model Title'; // Replace with your actual title
+    const fileUrl =
+      'https://modelviewer.dev/shared-assets/models/Astronaut.glb'; // Replace with your actual 3D model URL
+    const title = 'Astronaut'; // Replace with your actual title
     NativeModules.ARModule.openViewer(fileUrl, title);
   };
 
