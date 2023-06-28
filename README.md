@@ -1,7 +1,5 @@
 # React Native AR Bare Setup (no Expo)
-#
-# This is a bare setup for React Native AR projects.
-#
+
 ## Getting Started
 To run this app in development mode, you'll need to have a few things installed:
 Android Studio: https://developer.android.com/studio
