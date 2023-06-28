@@ -27,7 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new MainReactPackage(),
                     new RNScreensPackage(), // Add this line
                     new RNSensitiveInfoPackage(), // Add this line
-                    new SafeAreaContextPackage() // add this line
+                    new SafeAreaContextPackage(), // add this line
+                    new ARPackage() // Add this line
             );
         }
 

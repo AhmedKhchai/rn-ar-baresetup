@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Alert, Button, StyleSheet, View, TextInput} from 'react-native';
 import SInfo from 'react-native-sensitive-info';
 import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 type LoginParams = {
   email: string;
@@ -29,12 +30,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // useEffect(() => {
-  //   SInfo.getItem('userToken', options)
-  //     .then(token => setIsAuthenticated(!!token))
-  //     .catch(() => setIsAuthenticated(false));
-  // }, []);
+  const navigation = useNavigation();
 
   const loginMutation = useMutation(login, {
     onSuccess: data => {
@@ -43,6 +39,7 @@ export default function LoginScreen() {
         setIsAuthenticated(true),
       );
       console.log('Access token stored in SecureStore');
+      navigation.navigate('Products' as never);
     },
     onError: error => {
       Alert.alert('Error', 'Login failed try again');
@@ -51,7 +48,9 @@ export default function LoginScreen() {
   });
 
   const handleLogout = () => {
-    SInfo.deleteItem('userToken', {}).then(() => setIsAuthenticated(false));
+    SInfo.deleteItem('userToken', options).then(() =>
+      setIsAuthenticated(false),
+    );
   };
 
   const handleLogin = () => {

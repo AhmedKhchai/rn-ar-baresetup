@@ -4,6 +4,7 @@ import {QueryClientProvider, QueryClient} from 'react-query';
 import LoginScreen from './screens/LoginScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ProductsScreen from './screens/ProductsScreen';
 
 function App() {
   const queryClient = new QueryClient();
@@ -13,8 +14,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <SafeAreaView style={styles.container}>
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={LoginScreen} />
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Products" component={ProductsScreen} />
           </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
