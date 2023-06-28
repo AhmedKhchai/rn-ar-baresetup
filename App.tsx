@@ -1,26 +1,24 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Button,
-  NativeModules,
-} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {QueryClientProvider, QueryClient} from 'react-query';
+import LoginScreen from './screens/LoginScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 function App() {
-  const openARViewer = () => {
-    const fileUrl =
-      'https://modelviewer.dev/shared-assets/models/Astronaut.glb'; // Replace with your actual 3D model URL
-    const title = 'Astronaut'; // Replace with your actual title
-    NativeModules.ARModule.openViewer(fileUrl, title);
-  };
+  const queryClient = new QueryClient();
+  const Stack = createNativeStackNavigator();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inner}>
-        <Button title="Open AR Viewer" onPress={openARViewer} />
-      </View>
-    </SafeAreaView>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={LoginScreen} />
+          </Stack.Navigator>
+        </SafeAreaView>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
@@ -35,6 +33,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     padding: 20,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
 });
 
