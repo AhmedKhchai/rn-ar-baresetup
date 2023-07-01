@@ -1,9 +1,11 @@
 import {useMutation} from 'react-query';
 import axios from 'axios';
-import {Alert, Button, StyleSheet, View, TextInput} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import SInfo from 'react-native-sensitive-info';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {TextInput, Button} from 'react-native-paper';
+import CoffeeIcon from '../assets/CoffeeIcon';
 
 type LoginParams = {
   email: string;
@@ -59,8 +61,11 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
+      <CoffeeIcon style={styles.icon} />
       {isAuthenticated ? (
-        <Button title="Logout" onPress={handleLogout} />
+        <Button style={styles.button} onPress={handleLogout}>
+          Logout
+        </Button>
       ) : (
         <>
           <TextInput
@@ -71,13 +76,15 @@ export default function LoginScreen() {
             keyboardType="email-address"
           />
           <TextInput
-            style={styles.input}
-            onChangeText={setPassword}
-            value={password}
-            placeholder="Password"
+            label="Password"
             secureTextEntry
+            right={<TextInput.Icon icon="eye" />}
+            onChangeText={setPassword}
+            style={styles.input}
           />
-          <Button title="Login" onPress={handleLogin} />
+          <Button style={styles.button} onPress={handleLogin}>
+            Login
+          </Button>
         </>
       )}
     </View>
@@ -89,12 +96,27 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
+    backgroundColor: '#253d5b',
   },
   input: {
-    height: 40,
+    height: 60,
     borderColor: 'gray',
+    backgroundColor: '#C2ECFF',
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  button: {
+    top: 10,
+    backgroundColor: '#8f95d3',
+    color: '#C2ECFF',
+    borderRadius: 10,
+  },
+  icon: {
+    alignSelf: 'center',
+    marginBottom: 20,
+    height: 150,
+    width: 150,
   },
 });
