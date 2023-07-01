@@ -5,7 +5,7 @@ import SInfo from 'react-native-sensitive-info';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {TextInput, Button} from 'react-native-paper';
-import CoffeeIcon from '../assets/CoffeeIcon';
+import LottieView from 'lottie-react-native';
 
 type LoginParams = {
   email: string;
@@ -61,11 +61,23 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <CoffeeIcon style={styles.icon} />
+      <LottieView
+        style={styles.icon}
+        source={require('./../assets/coffeebrownpink.json')}
+        autoPlay
+        loop
+      />
       {isAuthenticated ? (
-        <Button style={styles.button} onPress={handleLogout}>
-          Logout
-        </Button>
+        <>
+          <Button
+            style={styles.button}
+            onPress={() => navigation.navigate('Products' as never)}>
+            Products
+          </Button>
+          <Button style={styles.button} onPress={handleLogout}>
+            Logout
+          </Button>
+        </>
       ) : (
         <>
           <TextInput
@@ -109,6 +121,7 @@ const styles = StyleSheet.create({
   },
   button: {
     top: 10,
+    marginVertical: 10,
     backgroundColor: '#8f95d3',
     color: '#C2ECFF',
     borderRadius: 10,
@@ -116,7 +129,7 @@ const styles = StyleSheet.create({
   icon: {
     alignSelf: 'center',
     marginBottom: 20,
-    height: 150,
-    width: 150,
+    height: 200,
+    width: 200,
   },
 });

@@ -8,7 +8,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
-
+import com.airbnb.android.react.lottie.LottiePackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage; 
@@ -30,7 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNSensitiveInfoPackage(), 
                     new SafeAreaContextPackage(), 
                     new ARPackage(),
-                    new SvgPackage()
+                    new SvgPackage(),
+                    new LottiePackage()                    
             );
         }
 
