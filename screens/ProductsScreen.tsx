@@ -31,7 +31,7 @@ export default function ProductsScreen() {
 
   const renderItem = ({item}: {item: Product}) => (
     <Card style={styles.item} onPress={() => showModal(item)}>
-      <Card.Title title={item.name} />
+      <Card.Title title={item.name} titleStyle={{color: 'black'}} />
       <Card.Content>
         <Text style={styles.title}>Price: {item.product_detail.price}</Text>
       </Card.Content>
@@ -72,7 +72,10 @@ export default function ProductsScreen() {
           <Modal visible={visible} onDismiss={hideModal}>
             {selectedProduct && (
               <Card style={styles.modal_container}>
-                <Card.Title title={selectedProduct.name} />
+                <Card.Title
+                  title={selectedProduct.name}
+                  titleStyle={{color: 'black'}}
+                />
                 <Card.Content>
                   <Text style={styles.text}>
                     Price: {selectedProduct.product_detail.price}

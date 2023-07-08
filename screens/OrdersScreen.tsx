@@ -47,7 +47,10 @@ export default function OrdersScreen() {
 
   const renderItem = ({item}: {item: Order}) => (
     <Card style={styles.item} onPress={() => showModal(item)}>
-      <Card.Title title={`Order ID: ${item.id}`} />
+      <Card.Title
+        title={`Order ID: ${item.id}`}
+        titleStyle={{color: 'black'}}
+      />
       <Card.Content>
         <Text style={styles.title}>Customer ID: {item.customer_id}</Text>
       </Card.Content>
@@ -81,7 +84,10 @@ export default function OrdersScreen() {
           <Modal visible={visible} onDismiss={hideModal}>
             {selectedOrder && (
               <Card style={styles.modal_container}>
-                <Card.Title title={`Order ID: ${selectedOrder.id}`} />
+                <Card.Title
+                  title={`Order ID: ${selectedOrder.id}`}
+                  titleStyle={{color: 'black'}}
+                />
                 <Card.Content>
                   <Text style={styles.text}>
                     Customer ID: {selectedOrder.customer_id}
