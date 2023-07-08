@@ -9,7 +9,7 @@ const fetchProducts = async () => {
   };
 
   const userToken = await SInfo.getItem('userToken', options);
-  const {data} = await axios.get('http://mspr.scholatech.com/api/products/', {
+  const {data} = await axios.get('http://scholatech.com/api/products/', {
     headers: {
       Authorization: `Bearer ${userToken}`,
     },

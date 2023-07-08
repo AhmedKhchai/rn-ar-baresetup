@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "axios": "^1.4.0",
@@ -21,6 +22,7 @@
     "react-native-screens": "^3.22.0",
     "react-native-sensitive-info": "^5.5.8",
     "react-native-svg": "^13.9.0",
+    "react-native-vector-icons": "^9.2.0",
     "react-query": "^3.39.3"
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
+    "@types/react-native-vector-icons": "^6.4.13",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",

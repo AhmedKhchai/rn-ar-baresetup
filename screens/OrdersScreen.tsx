@@ -1,39 +1,55 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList, NativeModules} from 'react-native';
-import {useProduct} from '../hooks/useProduct';
-import {Card, Modal, Portal, Button, Provider} from 'react-native-paper';
+import {View, Text, FlatList} from 'react-native';
+import {Card, Button, Modal, Portal, Provider} from 'react-native-paper';
+import {useOrder} from '../hooks/useOrder';
 import {StyleSheet} from 'react-native';
-import LottieView from 'lottie-react-native';
 
-type Product = {
+type Order = {
   id: number;
-  name: string;
-  product_detail: {
-    price: number;
-    description: string;
-    color: string;
+  customer_id: number;
+  created_at: string;
+  updated_at: string;
+  customer: {
+    id: number;
+    name: string;
+    username: string;
   };
-  stock: number;
+  order_products: {
+    id: number;
+    product_id: number;
+    order_id: number;
+    quantity: number;
+  }[];
+  products: {
+    id: number;
+    name: string;
+    stock: number;
+    product_detail: {
+      price: number;
+      description: string;
+      color: string;
+    };
+  }[];
 };
 
-export default function ProductsScreen() {
+export default function OrdersScreen() {
   const [visible, setVisible] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
-  const {data: products, isSuccess, isError, error, isLoading} = useProduct();
+  const {data: orders, isSuccess, isError, error, isLoading} = useOrder();
 
-  const showModal = (product: Product) => {
-    setSelectedProduct(product);
+  const showModal = (order: Order) => {
+    setSelectedOrder(order);
     setVisible(true);
   };
 
   const hideModal = () => setVisible(false);
 
-  const renderItem = ({item}: {item: Product}) => (
+  const renderItem = ({item}: {item: Order}) => (
     <Card style={styles.item} onPress={() => showModal(item)}>
-      <Card.Title title={item.name} />
+      <Card.Title title={`Order ID: ${item.id}`} />
       <Card.Content>
-        <Text style={styles.title}>Price: {item.product_detail.price}</Text>
+        <Text style={styles.title}>Customer ID: {item.customer_id}</Text>
       </Card.Content>
     </Card>
   );
@@ -50,19 +66,12 @@ export default function ProductsScreen() {
     }
   }
 
-  const openARViewer = () => {
-    NativeModules.ARModule.openViewer(
-      'https://modelviewer.dev/shared-assets/models/Astronaut.glb',
-      'Astronaut',
-    );
-  };
-
   return (
     <Provider>
       <View style={styles.container}>
         {isSuccess && (
           <FlatList
-            data={products}
+            data={orders}
             renderItem={renderItem}
             keyExtractor={item => item.id.toString()}
             contentContainerStyle={styles.flatlist}
@@ -70,31 +79,22 @@ export default function ProductsScreen() {
         )}
         <Portal>
           <Modal visible={visible} onDismiss={hideModal}>
-            {selectedProduct && (
+            {selectedOrder && (
               <Card style={styles.modal_container}>
-                <Card.Title title={selectedProduct.name} />
+                <Card.Title title={`Order ID: ${selectedOrder.id}`} />
                 <Card.Content>
                   <Text style={styles.text}>
-                    Price: {selectedProduct.product_detail.price}
+                    Customer ID: {selectedOrder.customer_id}
                   </Text>
-                  <Text style={styles.text}>
-                    Stock: {selectedProduct.stock}
-                  </Text>
-                  <Text style={styles.text}>
-                    Description: {selectedProduct.product_detail.description}
-                  </Text>
-                  <Text style={styles.text}>
-                    Color: {selectedProduct.product_detail.color}
-                  </Text>
-                  <LottieView
-                    source={require('./../assets/ar-lottie.json')}
-                    autoPlay
-                    loop={false}
-                    style={styles.lottie}
-                  />
-                  <Button style={styles.button} onPress={openARViewer}>
-                    Open AR Viewer
-                  </Button>
+                  {selectedOrder.products.map((product, index) => (
+                    <View key={index}>
+                      <Text style={styles.text}>Product: {product.name}</Text>
+                      <Text style={styles.text}>
+                        Quantity: {selectedOrder.order_products[index].quantity}
+                      </Text>
+                    </View>
+                  ))}
+                  {/* TODO: Place the add, delete, edit order buttons here based on the user role */}
                 </Card.Content>
               </Card>
             )}
@@ -148,10 +148,5 @@ const styles = StyleSheet.create({
     color: '#C2ECFF',
     borderRadius: 10,
     margin: 20,
-  },
-  lottie: {
-    width: 200,
-    height: 200,
-    alignSelf: 'center',
   },
 });
